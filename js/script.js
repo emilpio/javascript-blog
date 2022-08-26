@@ -7,7 +7,7 @@ function titleClickHandler(event) {
 
     /* remove class 'active' from all article links  */
 
-    const activeLinks = document.querySelectorAll("titles ");
+    const activeLinks = document.querySelectorAll(".titles a.active ");
 
     for (let activeLink of activeLinks) {
         activeLink.classList.remove("active");
@@ -16,10 +16,9 @@ function titleClickHandler(event) {
     /* add class 'active' to the clicked link */
 
     const clickedElement = this;
+    clickedElement.classList.add("active");
+
     console.log("clickedElement:" + clickedElement);
-    for (let activeLink of activeLinks) {
-        activeLink.classList.add("active");
-    }
 
     /* remove class 'active' from all articles */
 
