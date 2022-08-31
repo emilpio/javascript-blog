@@ -42,14 +42,6 @@ function titleClickHandler(event) {
     targetArticle.classList.add("active");
     console.log("corecct class to article ");
 }
-
-const links = document.querySelectorAll(".titles a");
-
-for (let link of links) {
-    link.addEventListener("click", titleClickHandler);
-}
-console.log("co zawiera links" + links);
-
 /*nowa funkcja */
 
 const optArticleSelector = ".post",
