@@ -107,20 +107,23 @@ function generateTags() {
     /* get tags from data-tags attribute */
 
     const articleTags = article.getAttribute("data-tags");
+    console.log(articleTags);
 
     /* split tags into array */
 
     const articleTagsArray = articleTags.split(" ");
+    console.log(articleTagsArray);
 
     /* START LOOP: for each tag */
 
     for (let tag of articleTagsArray) {
+      console.log(tag);
       /* generate HTML of the link */
       const linkHTML =
         '<li><a href="#tag-' + tag + '"><span>' + tag + "</span></a></li>";
-
+      console.log(linkHTML);
       /* insert link into html variable */
-      html = html + linkHTML;
+      html = html + " " + linkHTML;
 
       /* add generated code to html variable */
 
@@ -135,11 +138,14 @@ function generateTags() {
 generateTags();
 
 function tagClickHandler(event) {
+  console.log("Function tagClickHandler has been run.");
+
   /* prevent default action for this event */
   event.preventDefault();
   /* make new constant named "clickedElement" and give it the value of "this" */
 
   const clickedElement = this;
+  console.log("clicked tag");
 
   /* make a new constant "href" and read the attribute "href" of the clicked element */
 
@@ -196,8 +202,12 @@ function generateAuthors() {
   const articles = document.querySelectorAll(optArticleSelector);
   for (let article of articles) {
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
+    console.log(authorWrapper);
+
     let html = "";
     const authorNames = article.getAttribute("data-author");
+    console.log(authorNames);
+
     const linkHTML =
       '<a href="#author-' +
       authorNames +
@@ -219,7 +229,7 @@ function authorClickHandler(event) {
   console.log(href);
   const author = href.replace("#author", "");
   const authorActives = document.querySelectorAll('a.active[href^="#author-"]');
-  for (let authorActives of authorActives) {
+  for (let authorActive of authorActives) {
     /* remove class active */
     authorActive.classlist.remove("active");
 
@@ -230,6 +240,7 @@ function authorClickHandler(event) {
   const findAllAuthors = document.querySelectorAll(
     '[data-author="' + author + '"]'
   );
+  console.log(findAllAuthors);
 
   /* START LOOP: for each found tag link */
 
@@ -246,6 +257,7 @@ function addClickListenersToAuthors() {
   /* find all links to tags */
 
   const links = document.querySelectorAll('a[href^="#author-"]');
+  console.log(links);
 
   /* START LOOP: for each link */
 
