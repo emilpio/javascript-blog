@@ -148,11 +148,13 @@ function generateTags() {
   const tagList = document.querySelector(optTagsListSelector);
 
   /* [NEW] add html from allTags to tagList */
+
+  /* [NEW] add html from allTags to tagList */
   let allTagsHTML = "";
   for (let tag in allTags) {
     allTagsHTML += tag + " (" + allTags[tag] + ")";
   }
-  // z tym mi nic nie działa ;/ tagList.innerHTML = allTagsHTML;
+  //tagList.innerHTML = allTagsHTML;
 }
 
 generateTags();
@@ -270,7 +272,7 @@ function authorClickHandler(event) {
     /* END LOOP: for each found tag link */
   }
   /* execute function "generateTitleLinks" with article selector as argument */
-  generateTitleLinks('[data-tags~="' + author + '"]');
+  generateTitleLinks('[data-author="' + author + '"]');
 }
 
 function addClickListenersToAuthors() {
