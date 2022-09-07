@@ -148,14 +148,21 @@ function generateTags() {
   const tagsList = document.querySelector(optTagsListSelector);
 
   /* [NEW] add html from allTags to tagList */
-  let allTagsHTML = " ";
-
+  let allTagsHTML = "";
+  let Link = "";
   /* NEW Start Loop: for each tag in alltags */
 
   for (let tag in allTags) {
     /*generate code of a link and add it to alltahshtml*/
-
-    allTagsHTML += tag + " (" + allTags[tag] + ")";
+    Link =
+      '<li><a href="#tag-' +
+      tag +
+      '"><span>' +
+      tag +
+      "</span></a>(" +
+      allTags[tag] +
+      ")</li>";
+    allTagsHTML += Link;
 
     /*NEW END LOOP for each tag in allTags*/
   }
