@@ -44,9 +44,10 @@ const optArticleSelector = ".post",
   optTitleListSelector = ".titles",
   optArticleTagsSelector = ".post-tags .list",
   optArticleAuthorSelector = ".post-author",
-  optTagsListSelector = ".tags.list",
+  optTagsListSelector = ".list.tags",
   optCloudClassCount = 5,
-  optCloudClassPrefix = "tag-size-";
+  optCloudClassPrefix = "tag-size-",
+  optAuthorsListSelector = ".authors.list";
 
 function generateTitleLinks(customSelector = "") {
   /* remove contents of titleList */
@@ -135,12 +136,10 @@ function generateTags() {
     /* get tags from data-tags attribute */
 
     const articleTags = article.getAttribute("data-tags");
-    console.log(articleTags);
 
     /* split tags into array */
 
     const articleTagsArray = articleTags.split(" ");
-    console.log(articleTagsArray);
 
     /* START LOOP: for each tag */
 
@@ -175,7 +174,7 @@ function generateTags() {
   console.log("tagsParams,", tagsParams);
 
   /* [NEW] add html from allTags to tagList */
-  let allTagsHTML = "";
+  let allTagsHTML = " " + " ";
   let Link = "";
 
   /* NEW Start Loop: for each tag in alltags */
@@ -194,10 +193,12 @@ function generateTags() {
     Link =
       "<li><a href=#tag-" +
       tag +
-      ">" +
+      " class=" +
       calculateTagClass(allTags[tag], tagsParams) +
-      "</a></li>";
-    console.log(Link + "dsssssssssssssssssssssssssssssss");
+      ">" +
+      tag +
+      "</a></li>" +
+      " ";
     allTagsHTML += Link;
 
     /*NEW END LOOP for each tag in allTags*/
@@ -271,29 +272,90 @@ function addClickListenersToTags() {
 addClickListenersToTags();
 
 function generateAuthors() {
+  /* [NEW] create a new variable allTags with an empty OBJECT */
+  let allAuthors = {};
+  /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
-
+  /* START LOOP: for every article: */
   for (let article of articles) {
+    /* find tags wrapper */
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
-    console.log(authorWrapper);
 
+    /* make html variable with empty string */
     let html = "";
-    const authorNames = article.getAttribute("data-author");
-    console.log(authorNames);
+    /* get tags from data-tags attribute */
+    const author = article.getAttribute("data-author");
 
+    /* generate HTML of the link */
     const linkHTML =
-      '<a href="#author' +
-      authorNames +
-      '"><span>' +
-      authorNames +
-      "</span></a>";
+      '<a href="#author' + author + '"><span>' + author + "</span></a>";
+    /* insert link into html variable */
     html = html + linkHTML;
 
+    /* [NEW] check if this link is NOT already in allTags */
+    if (!allAuthors.hasOwnProperty(author)) {
+      /* [NEW] add generated code to allTags array */
+      allAuthors[author] = 1;
+    } else {
+      allAuthors[author]++;
+    } /* insert HTML of all the links into the tags wrapper tagWrapper = tagsList */
+
     authorWrapper.innerHTML = html;
+    /* END LOOP: for every article: */
   }
+  /* [NEW] find list of tags in right column */
+  const authorTagsList = document.querySelector(optAuthorsListSelector);
+  /* NEW create variable for all link HTML code */
+  const authorTagsParams = calculateAuthorsParams(allAuthors);
+  let allAuthorsHTML = "";
+  let Link = "";
+
+  for (let author in allAuthors) {
+    Link =
+      /*"<li class=" +
+      calculateTagClass(allAuthors[author], authorTagsParams) +
+      '><a href="#author-' +
+      author +
+      '"><span>' +
+      author +
+      "</span></a>"; */
+
+      '<li><a href="#author' +
+      author +
+      '"><span>' +
+      author +
+      " (" +
+      allAuthors[author] +
+      ")" +
+      "</span></a></li>";
+
+    allAuthorsHTML += Link;
+  }
+  authorTagsList.innerHTML = allAuthorsHTML;
 }
 
 generateAuthors();
+
+function calculateAuthorsParams(authors) {
+  const params = {
+    max: 0,
+    min: 999999,
+  };
+
+  for (let author in authors) {
+    console.log(author + "is used" + authors[author] + "times");
+
+    if (authors[author] > params.max) {
+      params.max = authors[author];
+    }
+
+    if (authors[author] < params.min) {
+      params.min = authors[author];
+    }
+  }
+
+  return params;
+}
 
 function authorClickHandler(event) {
   event.preventDefault();
