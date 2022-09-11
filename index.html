@@ -145,7 +145,7 @@
                        </ul>
                 </div>
               </article>
-              <article class="post" id="article-10" data-tags="bali house watergall dog hot-dog cactus" data-author="Adaś Mickiewicz">
+              <article class="post" id="article-10" data-tags="hawaii bali house watergall dog hot-dog cactus" data-author="Adaś Mickiewicz">
                 <h3 class="post-title">Article 10</h3>
                 <p class="post-author"></p>
                 <div class="post-content">
@@ -170,6 +170,11 @@
           </main>
         </div>
       </div>
+      <script id="template-article-author-tag" type="text/x-handlebars-template">
+        {{#each author}}
+        <li><a href="#author{{ author }}"><span>{{ author }} ({{ count }})</span></a></li>
+        {{/each}}
+      </script>
       <script id="template-tag-cloud-link" type="text/x-handlebars-template">
         {{#each tags}}
         <li><a href=#tag-{{ tag }}
@@ -178,9 +183,6 @@
         >{{tag}}</a></li>
         {{/each}}
       </script>
-
-      <!-- <a href="#{{ id }}"><span>{{ title }}</span></a></li> -->  
-      
       <script id="template-article-author" type="text/x-handlebars-template">
         <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
       </script>

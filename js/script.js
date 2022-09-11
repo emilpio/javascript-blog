@@ -13,6 +13,9 @@ const templates = {
   tagCloudLink: Handlebars.compile(
     document.querySelector("#template-tag-cloud-link").innerHTML
   ),
+  tagLinkRight: Handlebars.compile(
+    document.querySelector("#template-article-author-tag").innerHTML
+  ),
 };
 
 function titleClickHandler(event) {
@@ -343,7 +346,9 @@ function generateAuthors() {
   const authorTagsList = document.querySelector(optAuthorsListSelector);
   /* NEW create variable for all link HTML code */
   const authorTagsParams = calculateAuthorsParams(allAuthors);
-  let allAuthorsHTML = "";
+  //let allAuthorsHTML = "";
+  const allAuthorsData = { author: [] };
+
   let Link = "";
 
   for (let author in allAuthors) {
@@ -365,9 +370,16 @@ function generateAuthors() {
       ")" +
       "</span></a></li>";
 
-    allAuthorsHTML += Link;
+    // allAuthorsHTML += Link;
+    allAuthorsData.author.push({
+      author: author,
+      count: allAuthors[author],
+      className: calculateTagClass(allAuthors[author], authorTagsParams),
+    });
   }
-  authorTagsList.innerHTML = allAuthorsHTML;
+  // authorTagsList.innerHTML = allAuthorsHTML;
+
+  authorTagsList.innerHTML = templates.tagLinkRight(allAuthorsData);
 }
 
 generateAuthors();
