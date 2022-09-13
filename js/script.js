@@ -451,3 +451,11 @@ function addClickListenersToAuthors() {
   }
 }
 addClickListenersToAuthors();
+
+console.log(this);
+
+function foo() {
+  console.log(this);
+}
+
+foo();
